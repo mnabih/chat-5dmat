@@ -1,0 +1,18 @@
+<template>
+<div>
+    <ul class="messages">
+        <li class="message left appeared">
+          <div class="avatar"></div>
+          <div class="text_wrapper">
+            <div class="text">Hello Philip! :)</div>
+          </div>
+        </li>
+
+      </ul>
+</div>
+</template>
+<script>
+    export default{
+
+    }
+</script>
