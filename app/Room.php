@@ -14,4 +14,8 @@ class Room extends Model
         return $this->belongsTo('App\User');
     }
 
+    public function inRoom(){
+        return $this->hasMany('App\inRoom');
+    }
+
 }

@@ -30,4 +30,8 @@ Route::get('/getAllRooms', 'RoomsController@getAllRooms');
 Route::get('/getMyRooms', 'RoomsController@getMyRooms');
 Route::get('/deleteMyRoom/{room}', 'RoomsController@deleteMyRoom');
 
+Route::get('/room/users/{room}','RoomsController@RoomUsers');
+Route::get('/add/user/{room}','RoomsController@addToRoom');
+
+
 Route::post('/addMessage', 'MessagesController@addMessage');

@@ -15,6 +15,16 @@ Vue.use(VueRouter)
 
 Vue.use(require('vue-moment'));
 
+require('pusher-js');
+
+Vue.use(require('vue-pusher'), {
+    api_key: '14eb348ed14bc9ab41eb',
+    options: {
+        cluster: 'eu',
+        //encrypted: true,
+    }
+});
+
 
 // const files = require.context('./', true, /\.vue$/i);
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
@@ -53,12 +63,19 @@ Vue.http.headers.common['X-CSRF-TOKEN'] = document.querySelector('meta[name="csr
 /////// end vue resource /////
 
 
+///////////////
+import VueChatScroll from 'vue-chat-scroll'
+Vue.use(VueChatScroll)
+///////////////
+
+
 const chatBoxComponent = require('./components/chatbox/chatbox.vue').default;
 const AddRoomComponent = require('./components/rooms/addRooms.vue').default;
 const allRoomsComponent = require('./components/rooms/allRooms.vue').default;
 const myRoomsComponent = require('./components/rooms/myRooms.vue').default;
 const allMessages = require('./components/chatbox/allMessages.vue').default;
 const sendMessage = require('./components/chatbox/sendMessage.vue').default;
+const roomUsersList = require('./components/chatbox/list.vue').default;
 
 // to use component name ad a tag
 // Vue.component('chat-box', chatBoxComponent);
@@ -68,9 +85,10 @@ const sendMessage = require('./components/chatbox/sendMessage.vue').default;
 
 Vue.component('all-messages', allMessages);
 Vue.component('send-message', sendMessage);
+Vue.component('users-list', roomUsersList);
 
 const routes = [
-    { path: '/chat/:room_id', name:'chat', component: chatBoxComponent },
+    { path: '/chat/:room_id/:room_name', name:'chat', component: chatBoxComponent },
     { path: '/add', component: AddRoomComponent },
     { path: '/all', component: allRoomsComponent },
     { path: '/my', component: myRoomsComponent }

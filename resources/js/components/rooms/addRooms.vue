@@ -72,7 +72,7 @@ export default {
         this.isLoading = true;
         // POST /someUrl
         this.$http.post('/addRoom', {name: this.roomName}).then(response => {
-            console.log(response.body);
+            console.log('add room',response.body);
             this.isLoading = false;
             if(response.body.status == 1){
                 this.roomName = '';

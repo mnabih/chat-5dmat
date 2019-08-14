@@ -21,8 +21,8 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="room in allRooms">
-          <td scope="row"><router-link :to="{ name: 'chat', params: { room_id: room.id }}">{{ room.name }}</router-link></td>
+        <tr v-for="(room,index) in allRooms" :key="index">
+          <td scope="row"><router-link :to="{ name: 'chat', params: { room_id: room.id, room_name: room.name }}">{{ room.name }}</router-link></td>
           <td>{{ room.user.name }}</td>
           <td>{{ room.created_at | moment("from", "now") }}</td>
         </tr>

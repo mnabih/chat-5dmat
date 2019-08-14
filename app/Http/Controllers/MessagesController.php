@@ -6,6 +6,8 @@ use App\Message;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+//use Pusher\Laravel\Facades\Pusher;
+
 
 class MessagesController extends Controller
 {
@@ -21,12 +23,21 @@ class MessagesController extends Controller
             return response()->json(['status'=> 0,'message' => $validate->errors()->first()]);
         }
 
+        $user = Auth::user();
+
         /** save new room **/
         $new            = new Message();
         $new->room_id   = $request->room_id;
-        $new->user_id   = Auth::id();
+        $new->user_id   = $user->id;
         $new->text      = $request->message;
         $new->save();
-        return response()->json(['status'=> 1,'message' => 'success']);
+        $message = Message::whereId($new->id)->with('User','Room')->first();
+
+        // emit/trigger to pusher
+        $channel = 'room_' . $new->room_id;
+        $event = 'new_message';
+        tigger($channel, $event,$message);
+
+        return response()->json(['status'=> 1,'message' => 'success','data'=>$message]);
     }
 }
